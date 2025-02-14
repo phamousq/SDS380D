@@ -1,0 +1,85 @@
+---
+title: "Hw1"
+output: html_document
+---
+
+# Question 1
+
+Variables
+
+```{r}
+tv=c(44, 47, 50, 71, 33, 42, 46, 52, 39, 55, 62, 70, 44, 49, 50)
+happiness=c(256, 251, 267, 376, 170, 210, 322, 274, 215, 272, 337, 368, 224, 276, 294)
+```
+
+analysis
+
+```{r}
+model = lm(happiness~tv)
+summary(model)
+```
+
+## a) Estimate the regression line:
+
+Y = 21.062 + 5.035(tv)
+
+## b) Interpret B_o and B_1:
+
+B_o is the baseline happiness where everyone, regardless of how much tv they watch
+
+B_1 is the unit of increase in happiness per unit value increase of tv watched
+
+## c) Test whether or not a linear association exists between happiness and amount of tv one watches. State your hypotheses and your conclusions.
+
+Ho = B1 = 0
+
+```{r}
+5.035/0.605
+```
+
+p value of 1.45e-06 \> 0.05 means we can not reject the null, therefore there is not a linear association between hapiness and amount of tv one watches.
+
+## d) Interpret R\^2
+
+R\^2 represents the proportion of variance in the dependent variable that is predictable from the independent variable.
+
+since R\^2=0.8429, about 84% of the variance of happiness is explained by the predictor variable of amount of tv watched.
+
+## e) plot the estimated regression line and the data.
+
+```{r}
+plot(tv, happiness, abline(lm(happiness~tv)))
+```
+
+## f) Verify the assumptions
+
+```{r}
+par(mfrow = c(2,2))
+plot(model)
+```
+
+Linearity: Plot 1 shows no curve; relatively flat therefore confirming linearity
+
+Constant Variance: Plot 1 shows no funnel shape confirms constant variance
+
+Normality: Plot 2 shows values that align relatively well around a trendline; therefore normality is confirmed.
+
+Outlier: value 7 deviates from other values in the plots revealing that it is an outlier
+
+## Notes
+
+plot 1 tests assumptions of linearity and constant variance.
+
+-   a curve here would indicate assumption of linearity is violated.
+
+-   a funnel indicates constant variance is violated.
+
+-   random scatter around zero means we pass both assumptions of linearity and constant variance
+
+Plot 2: Normal Q-Q plot
+
+-   tests normality:
+
+    -   normal: linear line
+
+    -   violation: no line

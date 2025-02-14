@@ -1,0 +1,52 @@
+---
+title: "hw2"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+# Variable assignment, loading packages
+```{r}
+tv=c(39, 53, 39, 40, 74, 53, 61, 69, 60, 45, 51, 34, 33, 51, 50, 64, 42, 55, 29, 46, 44, 24, 43, 44, 42,56, 60, 44, 52, 67)
+candy=c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+happiness=c(45,103,82,83,105,102,102,145,110,86,108,49,89,103,104,326,233,291,181,234,228,132,224,244,237,280,300,235,289,288)
+
+library(sjPlot)
+library(sjmisc)
+library(ggplot2)
+```
+# Question 1
+```{r}
+# Running the model
+practice = lm(happiness~tv+candy+tv*candy)
+summary(practice)
+```
+
+> $B_o$         = default happiness without with no account for hrs tv watched or candy enjoyment
+
+> $B_(candy)$   = liking candy increases mean happiness by 40.735
+
+> $B_(tv)$      = one avg hour of tv watched per week increases hapiness by 1.522
+
+> $B_(candy*tv) = enjoying candy explains an increase in happiness of 2.466 per hour of tv watched
+
+# Question 2
+```{r}
+plot_model(practice, type = "int")
+```
+
+> Blue line indicates the trend in happiness in those that enjoy candy as a function of avg hrs of tv watched per week, red is the same but for those that do not like candy.
+```{r}
+par(mfrow = c(2, 2))
+plot(practice)
+```
+
+# Question 3
+```{r}
+tv_15 = tv - 15
+model = lm(happiness~tv_15+candy+tv_15*candy)
+summary(model)
+plot_model(model, type = "int")
+```
+
+> There is a significant difference between the mean happiness for subjects who watch 15 hours of tv and like candy vs those who watch 15 hours per week and do not like candy. We reject the null hypothesis with a p value of 0.000210. at 15 hours of tv watched, enjoying candy will explain 77.7263 points of increase in happiness. 
